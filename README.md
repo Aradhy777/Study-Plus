@@ -1,133 +1,230 @@
 # StudyPulse 📚
 
-A simple Flask-based web application for tracking study sessions, subjects, marks, and productivity. Built like a real BTech 2nd semester student project.
+A smart and minimal productivity tracker for students to manage study sessions, subjects, marks, and academic performance — built using Flask and designed like a practical B.Tech semester project.
 
-## Features
+---
 
-- **Subject Management**: Add and manage subjects with target study hours
-- **Study Sessions**: Log study hours with productivity scores
-- **Marks Tracking**: Record exam marks and calculate percentages
-- **Analytics Dashboard**: View study statistics and weak subjects
-- **Charts & Visualization**: Generate matplotlib charts for progress tracking
-- **Clean UI**: Bootstrap-based responsive interface
+## 🚀 Features
 
-## Tech Stack
+### 📖 Subject Management
 
-- **Backend**: Flask, Flask-SQLAlchemy
-- **Database**: SQLite
-- **Data Analysis**: Pandas, NumPy
-- **Visualization**: Matplotlib
-- **Frontend**: Bootstrap 5, HTML, CSS
+* Add and organize subjects
+* Set target study hours for each subject
+* Track subject-wise progress
 
-## Project Structure
+### ⏱️ Study Session Tracking
 
-```
+* Log daily study sessions
+* Record study duration and productivity score
+* Maintain consistent study habits
+
+### 📝 Marks & Performance Tracking
+
+* Store exam/test marks
+* Calculate percentages automatically
+* Monitor academic performance over time
+
+### 📊 Analytics Dashboard
+
+* View total study hours
+* Analyze productivity trends
+* Identify weak subjects instantly
+* Get subject-wise insights
+
+### 📈 Charts & Visualizations
+
+* Auto-generated graphs using Matplotlib
+* Study trends and performance analysis
+* Clean visual representation of data
+
+### 🎨 Responsive UI
+
+* Modern Bootstrap 5 interface
+* Mobile-friendly and easy to use
+* Simple and clean student-focused design
+
+---
+
+# 🛠️ Tech Stack
+
+| Category      | Technology              |
+| ------------- | ----------------------- |
+| Backend       | Flask, Flask-SQLAlchemy |
+| Database      | SQLite                  |
+| Data Analysis | Pandas, NumPy           |
+| Visualization | Matplotlib              |
+| Frontend      | Bootstrap 5, HTML, CSS  |
+
+---
+
+# 📂 Project Structure
+
+```bash
 StudyPulse/
-├── app.py                 # Main Flask application
-├── requirements.txt       # Python dependencies
+│
+├── app.py                     # Main Flask application
+├── requirements.txt           # Python dependencies
+│
 ├── database/
-│   └── study_tracker.db   # SQLite database
+│   └── study_tracker.db       # SQLite database
+│
 ├── static/
 │   ├── css/
-│   │   └── style.css      # Custom styling
-│   ├── js/                # JavaScript (if needed)
-│   └── charts/            # Generated chart images
+│   │   └── style.css          # Custom styles
+│   ├── js/                    # JavaScript files
+│   └── charts/                # Generated chart images
+│
 ├── templates/
-│   ├── base.html          # Base template
-│   ├── index.html         # Home page
-│   ├── dashboard.html     # Dashboard
-│   ├── subjects.html      # Subjects list
-│   ├── sessions.html      # Study sessions list
-│   ├── marks.html         # Marks list
-│   ├── analytics.html     # Analytics & charts
-│   ├── add_subject.html   # Add subject form
-│   ├── add_session.html   # Add session form
-│   └── add_mark.html      # Add mark form
+│   ├── base.html
+│   ├── index.html
+│   ├── dashboard.html
+│   ├── subjects.html
+│   ├── sessions.html
+│   ├── marks.html
+│   ├── analytics.html
+│   ├── add_subject.html
+│   ├── add_session.html
+│   └── add_mark.html
+│
 ├── modules/
 │   ├── database_manager.py    # Database operations
 │   ├── analytics.py           # Analytics functions
-│   ├── chart_generator.py     # Chart generation
-│   ├── validators.py          # Form validation
-│   └── utilities.py           # Helper functions
+│   ├── chart_generator.py     # Graph generation
+│   ├── validators.py          # Input validation
+│   └── utilities.py           # Helper utilities
+│
 ├── models/
-│   ├── subject.py         # Subject model
-│   ├── session.py         # StudySession model
-│   └── marks.py           # Mark model
-└── exports/               # Export directory
+│   ├── subject.py             # Subject model
+│   ├── session.py             # StudySession model
+│   └── marks.py               # Marks model
+│
+└── exports/                   # Exported reports/data
 ```
 
-## Setup & Installation
+---
 
-### 1. Clone the repository
+# ⚙️ Setup & Installation
+
+## 1️⃣ Clone the Repository
+
 ```bash
 git clone https://github.com/Aradhy777/Study-Plus.git
 cd StudyPulse
 ```
 
-### 2. Create virtual environment
+## 2️⃣ Create a Virtual Environment
+
 ```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-### 3. Install dependencies
+### Activate Environment
+
+#### Windows
+
+```bash
+venv\Scripts\activate
+```
+
+#### Linux / macOS
+
+```bash
+source venv/bin/activate
+```
+
+## 3️⃣ Install Dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Run the application
+## 4️⃣ Run the Application
+
 ```bash
 python app.py
 ```
 
-The app will be running at `http://localhost:5000`
+The application will run locally at:
 
-## Usage
+```bash
+http://localhost:5000
+```
 
-1. **Add Subjects**: Go to Subjects → Add a new subject with target study hours
-2. **Log Sessions**: Sessions → Log your study hours with productivity score
-3. **Record Marks**: Marks → Add exam marks and track performance
-4. **View Analytics**: Dashboard & Analytics show study statistics and charts
+---
 
-## Features Breakdown
+# 📌 How to Use
 
-### Dashboard
-- Total hours studied
-- Average productivity score
-- Study hours by subject
-- Weak subjects identification
+### ➕ Add Subjects
 
-### Analytics
-- Study hours trend
-- Subject-wise marks performance
-- Productivity tracking over time
-- Auto-generated matplotlib charts
+Create subjects and define target study hours.
 
-### Data Management
-- Add/Delete subjects
-- Add/Delete study sessions
-- Add/Delete marks
-- Real-time statistics calculation
+### 📚 Log Study Sessions
 
-## Deployment
+Track your daily study duration and productivity level.
 
-Can be deployed on:
-- Railway.app
-- PythonAnywhere
-- Heroku
-- AWS/DigitalOcean
+### 📝 Add Marks
 
-## Notes
+Store marks for tests/exams and monitor percentages.
 
-- Database is stored as SQLite file locally
-- Charts are regenerated on each analytics page visit
-- No user authentication - single user app
-- Responsive design works on mobile and desktop
+### 📊 View Dashboard & Analytics
 
-## Author
+Analyze study performance through statistics and charts.
 
-Built like a real Indian BTech student project. Yeh sirf learning purposes ke liye bana hai! 🎓
+---
 
-## License
+# 🔍 Core Functionalities
 
-This project is open source and available for educational purposes.
+## 📋 Dashboard
+
+* Total study hours
+* Average productivity score
+* Subject-wise study analysis
+* Weak subject detection
+
+## 📈 Analytics
+
+* Daily/weekly study trends
+* Marks performance graphs
+* Productivity growth tracking
+* Auto-generated charts using Matplotlib
+
+## 🗂️ Data Management
+
+* Add/Delete subjects
+* Add/Delete sessions
+* Add/Delete marks
+* Automatic real-time calculations
+
+---
+
+# ☁️ Deployment Options
+
+You can deploy this project on:
+
+* Railway
+* PythonAnywhere
+* Heroku
+* AWS EC2
+* DigitalOcean
+
+---
+
+# 📌 Additional Notes
+
+* Uses SQLite for local database storage
+* Charts regenerate dynamically on analytics requests
+* Single-user application (No authentication system)
+* Fully responsive for desktop and mobile devices
+
+---
+
+# 🎓 About the Project
+
+StudyPulse is designed as a practical academic productivity tracker inspired by real student workflows.
+The project focuses on learning Flask development, database handling, analytics, and frontend integration in a simple and structured way.
+
+---
+
+# 📄 License
+
+This project is open-source and intended for educational and learning purposes.
