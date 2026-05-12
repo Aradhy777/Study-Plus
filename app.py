@@ -4,6 +4,7 @@ from flask import Flask, render_template
 
 from modules.database_manager import db
 from models.session import StudySession  # noqa: F401
+from models.subject import Subject  # noqa: F401
 
 
 def create_app():
