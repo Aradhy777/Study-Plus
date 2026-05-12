@@ -1,42 +1,76 @@
-<!doctype html>
 {% extends "base.html" %}
 
 {% block title %}StudyPulse | Sessions{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-	<h1 class="page-title" style="margin-bottom: 0;">Study Sessions</h1>
-	<a href="{{ url_for('add_session') }}" class="btn btn-primary">➕ Add Session</a>
-</div>
+<header class="d-flex justify-content-between align-items-center mb-5 reveal">
+    <div>
+        <h1 class="page-title mb-1">Session Logs</h1>
+        <p class="text-muted"><i class="bi bi-calendar2-week me-2"></i> Historical record of your focused study time.</p>
+    </div>
+    <a href="{{ url_for('add_session') }}" class="btn btn-primary shadow-lg">
+        <i class="bi bi-stopwatch-fill me-2"></i> Log New Session
+    </a>
+</header>
 
-<div class="card">
+<div class="card reveal p-0 overflow-hidden">
 	{% if sessions %}
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Subject</th>
-				<th>Date</th>
-				<th>Duration (min)</th>
-				<th>Productivity</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for session in sessions %}
-			<tr>
-				<td>{{ session.subject }}</td>
-				<td>{{ session.date }}</td>
-				<td>{{ session.duration }}</td>
-				<td>{{ session.productivity or 'N/A' }}</td>
-				<td>
-					<a href="{{ url_for('delete_session', session_id=session.id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Sure?')">Delete</a>
-				</td>
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+	<div class="table-responsive">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th class="ps-4"><i class="bi bi-journal-bookmark me-2"></i>Subject</th>
+                    <th><i class="bi bi-calendar3 me-2"></i>Date</th>
+                    <th><i class="bi bi-hourglass-split me-2"></i>Duration</th>
+                    <th><i class="bi bi-lightning-charge me-2"></i>Efficiency</th>
+                    <th class="text-end pe-4">Manage</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for session in sessions %}
+                <tr>
+                    <td class="ps-4 fw-bold">{{ session.subject }}</td>
+                    <td><span class="text-muted">{{ session.date }}</span></td>
+                    <td><span class="badge glass-heavy text-primary">{{ session.duration }} mins</span></td>
+                    <td>
+                        {% if session.productivity %}
+                            {% set prod = session.productivity|float %}
+                            {% if prod >= 8 %}
+                                <span class="badge bg-success-soft text-success">{{ prod }}/10</span>
+                            {% elif prod >= 5 %}
+                                <span class="badge bg-warning-soft text-warning">{{ prod }}/10</span>
+                            {% else %}
+                                <span class="badge bg-danger-soft text-danger">{{ prod }}/10</span>
+                            {% endif %}
+                        {% else %}
+                            <span class="text-dim">N/A</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-end pe-4">
+                        <a href="{{ url_for('delete_session', session_id=session.id) }}" 
+                           class="btn btn-outline-danger btn-sm border-0" 
+                           onclick="return confirm('Remove this session log?')">
+                            <i class="bi bi-trash3"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 	{% else %}
-	<p class="text-muted">Koi session log nahi kiya gaya. <a href="{{ url_for('add_session') }}">Log one now</a></p>
+	<div class="text-center py-5">
+        <div class="display-1 mb-3 opacity-25">⏱️</div>
+        <p class="text-muted mb-4">No sessions have been recorded yet.</p>
+        <a href="{{ url_for('add_session') }}" class="btn btn-primary">Start Your First Session</a>
+    </div>
 	{% endif %}
 </div>
+
+<style>
+    .bg-success-soft { background: hsla(145, 80%, 45%, 0.1); }
+    .bg-warning-soft { background: hsla(35, 90%, 60%, 0.1); }
+    .bg-danger-soft { background: hsla(0, 85%, 65%, 0.1); }
+</style>
 {% endblock %}
+

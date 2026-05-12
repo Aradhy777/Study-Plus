@@ -1,66 +1,87 @@
 {% extends "base.html" %}
 
-{% block title %}StudyPulse | Home{% endblock %}
+{% block title %}StudyPulse | Master Your Flow{% endblock %}
 
 {% block content %}
-<section class="hero-section text-center py-5">
-    <h1 class="page-title mb-3">Master Your Study Flow</h1>
-    <p class="lead text-muted mx-auto" style="max-width: 700px;">
-        Track your study sessions, monitor productivity, and conquer your subjects with StudyPulse. 
-        Your journey to academic excellence starts here.
-    </p>
+<section class="hero-section text-center py-5 mb-5">
+    <div class="reveal">
+        <h1 class="page-title mb-3">Master Your <span class="text-gradient-primary">Study Flow</span></h1>
+        <p class="lead text-muted mx-auto mb-5" style="max-width: 750px; font-size: 1.25rem;">
+            Experience the next generation of academic tracking. Monitor productivity, 
+            visualize progress, and reach your peak performance with clinical precision.
+        </p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary px-5 py-3">
+                Get Started <i class="bi bi-arrow-right"></i>
+            </a>
+            <a href="{{ url_for('analytics') }}" class="btn btn-outline-light px-5 py-3">
+                View Insights
+            </a>
+        </div>
+    </div>
 </section>
 
-<div class="row g-4 mb-5">
+<div class="row g-4 mb-5 reveal">
 	<div class="col-md-3">
-		<div class="stat-tile h-100">
+		<div class="stat-tile">
 			<div class="stat-value text-primary">{{ "%.1f"|format(stats.total_hours) }}</div>
 			<div class="stat-label">Total Hours</div>
+            <div class="mt-2 small text-dim"><i class="bi bi-clock"></i> Focus Time</div>
 		</div>
 	</div>
 	<div class="col-md-3">
-		<div class="stat-tile h-100">
-			<div class="stat-value text-secondary">{{ "%.1f"|format(stats.avg_productivity) }}</div>
-			<div class="stat-label">Avg Productivity</div>
+		<div class="stat-tile">
+			<div class="stat-value text-secondary">{{ "%.1f"|format(stats.avg_productivity) }}%</div>
+			<div class="stat-label">Productivity</div>
+            <div class="mt-2 small text-dim"><i class="bi bi-lightning-charge"></i> Efficiency</div>
 		</div>
 	</div>
 	<div class="col-md-3">
-		<div class="stat-tile h-100">
+		<div class="stat-tile">
 			<div class="stat-value text-danger">{{ stats.weak_subjects|length }}</div>
-			<div class="stat-label">Weak Subjects</div>
+			<div class="stat-label">Priority Tasks</div>
+            <div class="mt-2 small text-dim"><i class="bi bi-exclamation-triangle"></i> Needs Focus</div>
 		</div>
 	</div>
 	<div class="col-md-3">
-		<div class="stat-tile h-100">
-			<div class="stat-value text-success">{{ stats.hours_by_subject|length }}</div>
-			<div class="stat-label">Total Subjects</div>
+		<div class="stat-tile">
+			<div class="stat-value text-accent" style="color: var(--accent);">{{ stats.hours_by_subject|length }}</div>
+			<div class="stat-label">Active Modules</div>
+            <div class="mt-2 small text-dim"><i class="bi bi-journals"></i> Total Subjects</div>
 		</div>
 	</div>
 </div>
 
-<div class="card p-4">
-	<h3 class="mb-4 fw-bold">Quick Actions</h3>
-	<div class="row g-3">
+<div class="card reveal">
+	<div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="m-0 fw-bold"><i class="bi bi-lightning-fill text-warning me-2"></i> Quick Operations</h3>
+    </div>
+	<div class="row g-4">
 		<div class="col-md-6 col-lg-3">
-			<a href="{{ url_for('add_subject') }}" class="btn btn-primary w-100 py-3">
-				<span>➕</span> Add Subject
+			<a href="{{ url_for('add_subject') }}" class="btn btn-outline-light w-100 py-4 d-flex flex-column gap-2">
+				<i class="bi bi-plus-circle fs-3 text-primary"></i>
+				<span>Add Subject</span>
 			</a>
 		</div>
 		<div class="col-md-6 col-lg-3">
-			<a href="{{ url_for('add_session') }}" class="btn btn-outline-light glass-heavy w-100 py-3">
-				<span>⏱️</span> Log Session
+			<a href="{{ url_for('add_session') }}" class="btn btn-outline-light w-100 py-4 d-flex flex-column gap-2">
+				<i class="bi bi-stopwatch fs-3 text-secondary"></i>
+				<span>Log Session</span>
 			</a>
 		</div>
 		<div class="col-md-6 col-lg-3">
-			<a href="{{ url_for('add_mark') }}" class="btn btn-outline-light glass-heavy w-100 py-3">
-				<span>📝</span> Add Marks
+			<a href="{{ url_for('add_mark') }}" class="btn btn-outline-light w-100 py-4 d-flex flex-column gap-2">
+				<i class="bi bi-journal-check fs-3 text-success"></i>
+				<span>Add Marks</span>
 			</a>
 		</div>
 		<div class="col-md-6 col-lg-3">
-			<a href="{{ url_for('analytics') }}" class="btn btn-outline-light glass-heavy w-100 py-3">
-				<span>📊</span> Analytics
+			<a href="{{ url_for('analytics') }}" class="btn btn-outline-light w-100 py-4 d-flex flex-column gap-2">
+				<i class="bi bi-bar-chart-line fs-3 text-accent"></i>
+				<span>Analytics</span>
 			</a>
 		</div>
 	</div>
 </div>
 {% endblock %}
+

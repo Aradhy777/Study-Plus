@@ -1,44 +1,88 @@
-<!doctype html>
 {% extends "base.html" %}
 
 {% block title %}StudyPulse | Marks{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-	<h1 class="page-title" style="margin-bottom: 0;">Marks</h1>
-	<a href="{{ url_for('add_mark') }}" class="btn btn-primary">➕ Add Mark</a>
+<header class="d-flex justify-content-between align-items-center mb-5 reveal">
+    <div>
+        <h1 class="page-title mb-1">Academic Records</h1>
+        <p class="text-muted"><i class="bi bi-mortarboard me-2"></i> Track your examination results and performance
+            trends.</p>
+    </div>
+    <a href="{{ url_for('add_mark') }}" class="btn btn-primary shadow-lg">
+        <i class="bi bi-patch-check me-2"></i> Record New Result
+    </a>
+</header>
+
+<div class="card reveal p-0 overflow-hidden">
+    {% if marks %}
+    <div class="table-responsive">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th class="ps-4">Assessment</th>
+                    <th>Type</th>
+                    <th>Score</th>
+                    <th>Percentage</th>
+                    <th>Date</th>
+                    <th class="text-end pe-4">Manage</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mark in marks %}
+                <tr>
+                    <td class="ps-4 fw-bold">
+                        <div class="d-flex align-items-center">
+                            <div class="stat-icon-sm bg-secondary-soft me-3">
+                                <i class="bi bi-file-earmark-ruled text-secondary"></i>
+                            </div>
+                            {{ mark.subject }}
+                        </div>
+                    </td>
+                    <td><span class="badge glass-heavy">{{ mark.exam_type }}</span></td>
+                    <td><span class="text-muted">{{ mark.marks_obtained }}</span> <span class="text-dim">/ {{
+                            mark.total_marks }}</span></td>
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="progress flex-grow-1"
+                                style="height: 6px; min-width: 60px; background: var(--glass-border);">
+                                <div class="progress-bar bg-primary" role="progressbar"
+                                    style="width: {{ mark.percentage() }}%"></div>
+                            </div>
+                            <span class="fw-bold text-primary">{{ mark.percentage() }}%</span>
+                        </div>
+                    </td>
+                    <td><span class="text-dim small">{{ mark.exam_date }}</span></td>
+                    <td class="text-end pe-4">
+                        <a href="{{ url_for('delete_mark', mark_id=mark.id) }}"
+                            class="btn btn-outline-danger btn-sm border-0"
+                            onclick="return confirm('Remove this record?')">
+                            <i class="bi bi-trash3"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+        <div class="display-1 mb-3 opacity-25">🎓</div>
+        <p class="text-muted mb-4">No examination results have been logged.</p>
+        <a href="{{ url_for('add_mark') }}" class="btn btn-primary">Add Your First Score</a>
+    </div>
+    {% endif %}
 </div>
 
-<div class="card">
-	{% if marks %}
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Subject</th>
-				<th>Exam Type</th>
-				<th>Marks</th>
-				<th>Percentage</th>
-				<th>Date</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for mark in marks %}
-			<tr>
-				<td>{{ mark.subject }}</td>
-				<td>{{ mark.exam_type }}</td>
-				<td>{{ mark.marks_obtained }}/{{ mark.total_marks }}</td>
-				<td><strong>{{ mark.percentage() }}%</strong></td>
-				<td>{{ mark.exam_date }}</td>
-				<td>
-					<a href="{{ url_for('delete_mark', mark_id=mark.id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Sure?')">Delete</a>
-				</td>
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-	{% else %}
-	<p class="text-muted">Koi marks record nahi kiye gaye. <a href="{{ url_for('add_mark') }}">Add now</a></p>
-	{% endif %}
-</div>
+<style>
+    .bg-secondary-soft {
+        background: hsla(280, 80%, 65%, 0.1);
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+    }
+</style>
 {% endblock %}

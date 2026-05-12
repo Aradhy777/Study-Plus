@@ -3,31 +3,49 @@
 {% block title %}StudyPulse | Subjects{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-5">
-	<h1 class="page-title mb-0">Managed Subjects</h1>
-	<a href="{{ url_for('add_subject') }}" class="btn btn-primary">
-        <span>➕</span> Add Subject
+<header class="d-flex justify-content-between align-items-center mb-5 reveal">
+    <div>
+        <h1 class="page-title mb-1">Academic Modules</h1>
+        <p class="text-muted"><i class="bi bi-bookmarks me-2"></i> Configure and manage your areas of study.</p>
+    </div>
+    <a href="{{ url_for('add_subject') }}" class="btn btn-primary shadow-lg">
+        <i class="bi bi-plus-lg"></i> Add New Subject
     </a>
-</div>
+</header>
 
-<div class="card p-0 overflow-hidden">
+<div class="card reveal p-0 overflow-hidden">
 	{% if subjects %}
 	<div class="table-responsive">
         <table class="table mb-0">
             <thead>
                 <tr>
-                    <th class="ps-4">Subject Name</th>
-                    <th>Target Hours</th>
-                    <th class="text-end pe-4">Action</th>
+                    <th class="ps-4">Designation</th>
+                    <th>Quota (Hours)</th>
+                    <th class="text-end pe-4">Operations</th>
                 </tr>
             </thead>
             <tbody>
                 {% for subject in subjects %}
                 <tr>
-                    <td class="ps-4 fw-bold text-primary"><i class="bi bi-book me-2"></i>{{ subject.name }}</td>
-                    <td><span class="badge glass-heavy text-info">{{ subject.target_hours }} hrs</span></td>
+                    <td class="ps-4 fw-bold">
+                        <div class="d-flex align-items-center">
+                            <div class="stat-icon-sm bg-primary-soft me-3">
+                                <i class="bi bi-journal-text text-primary"></i>
+                            </div>
+                            {{ subject.name }}
+                        </div>
+                    </td>
+                    <td>
+                        <span class="badge glass-heavy text-accent" style="color: var(--accent);">
+                            <i class="bi bi-clock-history me-1"></i> {{ subject.target_hours }} hrs
+                        </span>
+                    </td>
                     <td class="text-end pe-4">
-                        <a href="{{ url_for('delete_subject', subject_id=subject.id) }}" class="btn btn-danger btn-sm px-3" onclick="return confirm('Delete subject?')">Delete</a>
+                        <a href="{{ url_for('delete_subject', subject_id=subject.id) }}" 
+                           class="btn btn-outline-danger btn-sm border-0" 
+                           onclick="return confirm('Archive this subject?')">
+                            <i class="bi bi-trash3"></i>
+                        </a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -36,9 +54,23 @@
     </div>
 	{% else %}
 	<div class="text-center py-5">
-        <p class="text-muted mb-3">No subjects tracked yet.</p>
-        <a href="{{ url_for('add_subject') }}" class="btn btn-outline-primary">Start by adding one</a>
+        <div class="display-1 mb-3 opacity-25">📚</div>
+        <p class="text-muted mb-4">No subjects are currently being tracked.</p>
+        <a href="{{ url_for('add_subject') }}" class="btn btn-primary">Initialize First Subject</a>
     </div>
 	{% endif %}
 </div>
+
+<style>
+    .bg-primary-soft {
+        background: hsla(250, 85%, 65%, 0.1);
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+    }
+</style>
 {% endblock %}
+

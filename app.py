@@ -1,5 +1,4 @@
 from pathlib import Path
-from pathlib import Path
 from datetime import datetime
 
 from flask import Flask, render_template, request, redirect, url_for, flash
@@ -52,7 +51,8 @@ def subjects():
 def add_subject():
 	if request.method == 'POST':
 		name = request.form.get('name')
-		target_hours = float(request.form.get('target_hours', 10.0))
+		target_hours_raw = request.form.get('target_hours')
+		target_hours = float(target_hours_raw) if target_hours_raw else 10.0
         
 		valid, msg = validate_subject(name)
 		if not valid:
@@ -134,8 +134,16 @@ def marks():
 def add_mark():
 	if request.method == 'POST':
 		subject = request.form.get('subject')
-		marks_obtained = float(request.form.get('marks_obtained'))
-		total_marks = float(request.form.get('total_marks', 100.0))
+		marks_obtained_raw = request.form.get('marks_obtained')
+		total_marks_raw = request.form.get('total_marks')
+		
+		try:
+			marks_obtained = float(marks_obtained_raw) if marks_obtained_raw else 0.0
+			total_marks = float(total_marks_raw) if total_marks_raw else 100.0
+		except ValueError:
+			flash("Invalid marks format", 'danger')
+			return redirect(url_for('marks'))
+			
 		exam_date_str = request.form.get('exam_date')
 		exam_type = request.form.get('exam_type')
         

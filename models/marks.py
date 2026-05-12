@@ -12,6 +12,8 @@ class Mark(db.Model):
     exam_type = db.Column(db.String(50), nullable=False)
 
     def percentage(self):
+        if not self.total_marks or self.total_marks == 0:
+            return 0.0
         return round((self.marks_obtained / self.total_marks) * 100, 2)
 
     def __repr__(self):

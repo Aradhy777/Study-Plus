@@ -1,54 +1,75 @@
 {% extends "base.html" %}
 
-{% block title %}StudyPulse | Add Session{% endblock %}
+{% block title %}StudyPulse | Log Session{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-lg-6">
-        <div class="d-flex align-items-center mb-4">
-            <a href="{{ url_for('sessions') }}" class="btn btn-outline-light glass me-3 px-3">←</a>
-            <h1 class="page-title mb-0">Log Study Session</h1>
+<div class="row justify-content-center py-5">
+    <div class="col-lg-7 reveal">
+        <div class="text-center mb-5">
+            <h1 class="page-title">Session <span class="text-gradient-primary">Sync</span></h1>
+            <p class="text-muted">Commit your study hours to the system for performance analysis.</p>
         </div>
 
-        <div class="card p-4">
+        <div class="card p-5 border-0 shadow-2xl">
             <form method="POST" action="{{ url_for('add_session') }}">
                 <div class="mb-4">
-                    <label for="subject" class="form-label text-muted small fw-bold text-uppercase">Subject *</label>
-                    <select id="subject" name="subject" class="form-select glass" required>
-                        <option value="">Select a subject</option>
+                    <label for="subject" class="form-label">
+                        <i class="bi bi-journal-bookmark me-2 text-primary"></i> Target Module
+                    </label>
+                    <select id="subject" name="subject" class="form-select" required>
+                        <option value="" disabled selected>Select an active subject...</option>
                         {% for subject in subjects %}
                         <option value="{{ subject.name }}">{{ subject.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 
-                <div class="row g-3 mb-4">
+                <div class="row g-4 mb-4">
                     <div class="col-md-6">
-                        <label for="date" class="form-label text-muted small fw-bold text-uppercase">Date *</label>
-                        <input type="date" id="date" name="date" class="form-control glass" required>
+                        <label for="date" class="form-label">
+                            <i class="bi bi-calendar-event me-2 text-primary"></i> Date
+                        </label>
+                        <input type="date" id="date" name="date" class="form-control" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="duration" class="form-label text-muted small fw-bold text-uppercase">Duration (min) *</label>
-                        <input type="number" id="duration" name="duration" class="form-control glass" required min="1" placeholder="60">
+                        <label for="duration" class="form-label">
+                            <i class="bi bi-stopwatch me-2 text-primary"></i> Duration (minutes)
+                        </label>
+                        <input type="number" id="duration" name="duration" class="form-control" required min="1" placeholder="e.g. 90">
                     </div>
                 </div>
                 
-                <div class="mb-4">
-                    <label for="productivity" class="form-label text-muted small fw-bold text-uppercase">Productivity (0-10)</label>
-                    <input type="range" id="productivity" name="productivity" class="form-range" min="0" max="10" step="1" value="7">
-                    <div class="d-flex justify-content-between text-muted small mt-1">
-                        <span>Low</span>
-                        <span>Medium</span>
-                        <span>High</span>
+                <div class="mb-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <label for="productivity" class="form-label m-0">
+                            <i class="bi bi-lightning-charge me-2 text-warning"></i> Productivity Matrix
+                        </label>
+                        <span id="prod-value" class="badge bg-primary px-3 py-2 fs-6">7 / 10</span>
+                    </div>
+                    <input type="range" id="productivity" name="productivity" class="form-range" min="0" max="10" step="1" value="7" oninput="document.getElementById('prod-value').innerText = this.value + ' / 10'">
+                    <div class="d-flex justify-content-between text-dim small mt-2 px-1">
+                        <span>Lethargic</span>
+                        <span>Balanced</span>
+                        <span>Hyper-Focus</span>
                     </div>
                 </div>
                 
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-5">
-                    <a href="{{ url_for('sessions') }}" class="btn btn-outline-light glass me-md-2">Cancel</a>
-                    <button type="submit" class="btn btn-primary px-4">Log Session</button>
+                <div class="d-flex gap-3 mt-4">
+                    <a href="{{ url_for('sessions') }}" class="btn btn-outline-light flex-grow-1 py-3">
+                        Cancel
+                    </a>
+                    <button type="submit" class="btn btn-primary flex-grow-1 py-3">
+                        <i class="bi bi-cloud-arrow-up me-2"></i> Log Session
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    // Set default date to today
+    document.getElementById('date').valueAsDate = new Date();
+</script>
 {% endblock %}
+
