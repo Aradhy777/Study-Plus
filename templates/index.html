@@ -1,49 +1,66 @@
-<!doctype html>
 {% extends "base.html" %}
 
 {% block title %}StudyPulse | Home{% endblock %}
 
 {% block content %}
-<h1 class="page-title">Welcome to StudyPulse</h1>
+<section class="hero-section text-center py-5">
+    <h1 class="page-title mb-3">Master Your Study Flow</h1>
+    <p class="lead text-muted mx-auto" style="max-width: 700px;">
+        Track your study sessions, monitor productivity, and conquer your subjects with StudyPulse. 
+        Your journey to academic excellence starts here.
+    </p>
+</section>
 
-<div class="card">
-	<p>Yeh ek Flask-based study tracker hai jo tumhare padhai ke time, subjects, aur marks ko manage karne mein madad karta hai.</p>
-</div>
-
-<div class="row">
+<div class="row g-4 mb-5">
 	<div class="col-md-3">
-		<div class="stat-tile">
-			<div class="stat-value">{{ "%.1f"|format(stats.total_hours) }}</div>
+		<div class="stat-tile h-100">
+			<div class="stat-value text-primary">{{ "%.1f"|format(stats.total_hours) }}</div>
 			<div class="stat-label">Total Hours</div>
 		</div>
 	</div>
 	<div class="col-md-3">
-		<div class="stat-tile">
-			<div class="stat-value">{{ "%.1f"|format(stats.avg_productivity) }}</div>
+		<div class="stat-tile h-100">
+			<div class="stat-value text-secondary">{{ "%.1f"|format(stats.avg_productivity) }}</div>
 			<div class="stat-label">Avg Productivity</div>
 		</div>
 	</div>
 	<div class="col-md-3">
-		<div class="stat-tile">
-			<div class="stat-value">{{ stats.weak_subjects|length }}</div>
+		<div class="stat-tile h-100">
+			<div class="stat-value text-danger">{{ stats.weak_subjects|length }}</div>
 			<div class="stat-label">Weak Subjects</div>
 		</div>
 	</div>
 	<div class="col-md-3">
-		<div class="stat-tile">
-			<div class="stat-value">{{ stats.hours_by_subject|length }}</div>
+		<div class="stat-tile h-100">
+			<div class="stat-value text-success">{{ stats.hours_by_subject|length }}</div>
 			<div class="stat-label">Total Subjects</div>
 		</div>
 	</div>
 </div>
 
-<div class="card" style="margin-top: 30px;">
-	<h3>Quick Start</h3>
-	<ul class="list-group list-group-flush">
-		<li class="list-group-item"><a href="{{ url_for('add_subject') }}">➕ Add a Subject</a></li>
-		<li class="list-group-item"><a href="{{ url_for('add_session') }}">⏱️ Log Study Session</a></li>
-		<li class="list-group-item"><a href="{{ url_for('add_mark') }}">📝 Add Marks</a></li>
-		<li class="list-group-item"><a href="{{ url_for('analytics') }}">📊 View Analytics</a></li>
-	</ul>
+<div class="card p-4">
+	<h3 class="mb-4 fw-bold">Quick Actions</h3>
+	<div class="row g-3">
+		<div class="col-md-6 col-lg-3">
+			<a href="{{ url_for('add_subject') }}" class="btn btn-primary w-100 py-3">
+				<span>➕</span> Add Subject
+			</a>
+		</div>
+		<div class="col-md-6 col-lg-3">
+			<a href="{{ url_for('add_session') }}" class="btn btn-outline-light glass-heavy w-100 py-3">
+				<span>⏱️</span> Log Session
+			</a>
+		</div>
+		<div class="col-md-6 col-lg-3">
+			<a href="{{ url_for('add_mark') }}" class="btn btn-outline-light glass-heavy w-100 py-3">
+				<span>📝</span> Add Marks
+			</a>
+		</div>
+		<div class="col-md-6 col-lg-3">
+			<a href="{{ url_for('analytics') }}" class="btn btn-outline-light glass-heavy w-100 py-3">
+				<span>📊</span> Analytics
+			</a>
+		</div>
+	</div>
 </div>
 {% endblock %}

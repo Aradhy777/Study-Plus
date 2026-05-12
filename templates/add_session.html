@@ -3,39 +3,52 @@
 {% block title %}StudyPulse | Add Session{% endblock %}
 
 {% block content %}
-<h1 class="page-title">Log Study Session</h1>
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="d-flex align-items-center mb-4">
+            <a href="{{ url_for('sessions') }}" class="btn btn-outline-light glass me-3 px-3">←</a>
+            <h1 class="page-title mb-0">Log Study Session</h1>
+        </div>
 
-<div class="card" style="max-width: 500px;">
-    <form method="POST" action="{{ url_for('add_session') }}">
-        <div class="form-group">
-            <label for="subject">Subject *</label>
-            <select id="subject" name="subject" class="form-control" required>
-                <option value="">Select a subject</option>
-                {% for subject in subjects %}
-                <option value="{{ subject.name }}">{{ subject.name }}</option>
-                {% endfor %}
-            </select>
+        <div class="card p-4">
+            <form method="POST" action="{{ url_for('add_session') }}">
+                <div class="mb-4">
+                    <label for="subject" class="form-label text-muted small fw-bold text-uppercase">Subject *</label>
+                    <select id="subject" name="subject" class="form-select glass" required>
+                        <option value="">Select a subject</option>
+                        {% for subject in subjects %}
+                        <option value="{{ subject.name }}">{{ subject.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label for="date" class="form-label text-muted small fw-bold text-uppercase">Date *</label>
+                        <input type="date" id="date" name="date" class="form-control glass" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="duration" class="form-label text-muted small fw-bold text-uppercase">Duration (min) *</label>
+                        <input type="number" id="duration" name="duration" class="form-control glass" required min="1" placeholder="60">
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="productivity" class="form-label text-muted small fw-bold text-uppercase">Productivity (0-10)</label>
+                    <input type="range" id="productivity" name="productivity" class="form-range" min="0" max="10" step="1" value="7">
+                    <div class="d-flex justify-content-between text-muted small mt-1">
+                        <span>Low</span>
+                        <span>Medium</span>
+                        <span>High</span>
+                    </div>
+                </div>
+                
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-5">
+                    <a href="{{ url_for('sessions') }}" class="btn btn-outline-light glass me-md-2">Cancel</a>
+                    <button type="submit" class="btn btn-primary px-4">Log Session</button>
+                </div>
+            </form>
         </div>
-        
-        <div class="form-group">
-            <label for="date">Date *</label>
-            <input type="date" id="date" name="date" class="form-control" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="duration">Duration (minutes) *</label>
-            <input type="number" id="duration" name="duration" class="form-control" required min="1">
-        </div>
-        
-        <div class="form-group">
-            <label for="productivity">Productivity Score (0-10)</label>
-            <input type="number" id="productivity" name="productivity" class="form-control" min="0" max="10" step="0.5">
-        </div>
-        
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Add Session</button>
-            <a href="{{ url_for('sessions') }}" class="btn btn-secondary">Cancel</a>
-        </div>
-    </form>
+    </div>
 </div>
 {% endblock %}

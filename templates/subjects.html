@@ -1,38 +1,44 @@
-<!doctype html>
 {% extends "base.html" %}
 
 {% block title %}StudyPulse | Subjects{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-	<h1 class="page-title" style="margin-bottom: 0;">Subjects</h1>
-	<a href="{{ url_for('add_subject') }}" class="btn btn-primary">➕ Add Subject</a>
+<div class="d-flex justify-content-between align-items-center mb-5">
+	<h1 class="page-title mb-0">Managed Subjects</h1>
+	<a href="{{ url_for('add_subject') }}" class="btn btn-primary">
+        <span>➕</span> Add Subject
+    </a>
 </div>
 
-<div class="card">
+<div class="card p-0 overflow-hidden">
 	{% if subjects %}
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Subject Name</th>
-				<th>Target Hours</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for subject in subjects %}
-			<tr>
-				<td>{{ subject.name }}</td>
-				<td>{{ subject.target_hours }} hrs</td>
-				<td>
-					<a href="{{ url_for('delete_subject', subject_id=subject.id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Sure?')">Delete</a>
-				</td>
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+	<div class="table-responsive">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th class="ps-4">Subject Name</th>
+                    <th>Target Hours</th>
+                    <th class="text-end pe-4">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for subject in subjects %}
+                <tr>
+                    <td class="ps-4 fw-bold text-primary"><i class="bi bi-book me-2"></i>{{ subject.name }}</td>
+                    <td><span class="badge glass-heavy text-info">{{ subject.target_hours }} hrs</span></td>
+                    <td class="text-end pe-4">
+                        <a href="{{ url_for('delete_subject', subject_id=subject.id) }}" class="btn btn-danger btn-sm px-3" onclick="return confirm('Delete subject?')">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 	{% else %}
-	<p class="text-muted">Koi subject add nahi kiya gaya abhi. <a href="{{ url_for('add_subject') }}">Add one now</a></p>
+	<div class="text-center py-5">
+        <p class="text-muted mb-3">No subjects tracked yet.</p>
+        <a href="{{ url_for('add_subject') }}" class="btn btn-outline-primary">Start by adding one</a>
+    </div>
 	{% endif %}
 </div>
 {% endblock %}

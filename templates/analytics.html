@@ -1,63 +1,65 @@
-<!doctype html>
 {% extends "base.html" %}
 
 {% block title %}StudyPulse | Analytics{% endblock %}
 
 {% block content %}
-<h1 class="page-title">Analytics & Charts</h1>
+<header class="mb-5">
+    <h1 class="page-title mb-1">Advanced Analytics</h1>
+    <p class="text-muted">In-depth breakdown of your study performance and trends.</p>
+</header>
 
-<div class="row">
+<div class="row g-4 mb-5">
 	<div class="col-md-3">
-		<div class="stat-tile">
-			<div class="stat-value">{{ "%.1f"|format(stats.total_hours) }}</div>
+		<div class="stat-tile h-100">
+			<div class="stat-value text-primary">{{ "%.1f"|format(stats.total_hours) }}</div>
 			<div class="stat-label">Total Hours</div>
 		</div>
 	</div>
 	<div class="col-md-3">
-		<div class="stat-tile">
-			<div class="stat-value">{{ "%.1f"|format(stats.avg_productivity) }}</div>
+		<div class="stat-tile h-100">
+			<div class="stat-value text-secondary">{{ "%.1f"|format(stats.avg_productivity) }}</div>
 			<div class="stat-label">Avg Productivity</div>
 		</div>
 	</div>
 	<div class="col-md-3">
-		<div class="stat-tile">
-			<div class="stat-value">{{ stats.hours_by_subject|length }}</div>
+		<div class="stat-tile h-100">
+			<div class="stat-value text-info">{{ stats.hours_by_subject|length }}</div>
 			<div class="stat-label">Subjects</div>
 		</div>
 	</div>
 	<div class="col-md-3">
-		<div class="stat-tile">
-			<div class="stat-value">{{ stats.marks_by_subject|length }}</div>
-			<div class="stat-label">Exams</div>
+		<div class="stat-tile h-100">
+			<div class="stat-value text-warning">{{ stats.marks_by_subject|length }}</div>
+			<div class="stat-label">Exams Logged</div>
 		</div>
 	</div>
 </div>
 
-<div class="row" style="margin-top: 20px;">
+<div class="row g-4">
 	<div class="col-md-6">
-		<div class="card">
-			<h3 class="card-title">Study Hours by Subject</h3>
-			<div class="chart-container">
-				<img src="{{ url_for('static', filename='charts/study_hours.png') }}?t={{ range(1, 100000)|random }}" alt="Study Hours Chart">
+		<div class="card h-100">
+			<h3 class="card-title fw-bold mb-4">📊 Study Distribution</h3>
+			<div class="chart-container glass p-3 rounded-4">
+				<img src="{{ url_for('static', filename='charts/study_hours.png') }}?t={{ range(1, 100000)|random }}" alt="Study Hours Chart" class="w-100 rounded-3">
 			</div>
 		</div>
 	</div>
 	<div class="col-md-6">
-		<div class="card">
-			<h3 class="card-title">Marks Performance</h3>
-			<div class="chart-container">
-				<img src="{{ url_for('static', filename='charts/marks_chart.png') }}?t={{ range(1, 100000)|random }}" alt="Marks Chart">
+		<div class="card h-100">
+			<h3 class="card-title fw-bold mb-4">📈 Academic Progress</h3>
+			<div class="chart-container glass p-3 rounded-4">
+				<img src="{{ url_for('static', filename='charts/marks_chart.png') }}?t={{ range(1, 100000)|random }}" alt="Marks Chart" class="w-100 rounded-3">
 			</div>
 		</div>
 	</div>
 </div>
 
-<div class="row" style="margin-top: 20px;">
+<div class="row g-4 mt-2">
 	<div class="col-md-12">
 		<div class="card">
-			<h3 class="card-title">Productivity Trend</h3>
-			<div class="chart-container">
-				<img src="{{ url_for('static', filename='charts/productivity_chart.png') }}?t={{ range(1, 100000)|random }}" alt="Productivity Chart">
+			<h3 class="card-title fw-bold mb-4">📉 Productivity Over Time</h3>
+			<div class="chart-container glass p-3 rounded-4" style="min-height: 300px;">
+				<img src="{{ url_for('static', filename='charts/productivity_chart.png') }}?t={{ range(1, 100000)|random }}" alt="Productivity Chart" class="w-100 rounded-3">
 			</div>
 		</div>
 	</div>
