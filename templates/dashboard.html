@@ -1,31 +1,92 @@
 <!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>StudyPulse | Dashboard</title>
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-	<div class="page">
-		<header class="topbar">
-			<div>
-				<h1 class="brand">Dashboard</h1>
-				<p class="subtitle">Overall study summary</p>
-			</div>
-			<nav class="nav">
-				<a href="{{ url_for('index') }}">Home</a>
-				<a href="{{ url_for('subjects') }}">Subjects</a>
-				<a href="{{ url_for('sessions') }}">Sessions</a>
-				<a href="{{ url_for('marks') }}">Marks</a>
-				<a href="{{ url_for('analytics') }}">Analytics</a>
-			</nav>
-		</header>
+{% extends "base.html" %}
 
-		<section class="card">
-			<h2>Study Dashboard</h2>
-			<p class="muted">Yahan pe future me total study hours aur subject progress dikhega.</p>
-		</section>
+{% block title %}StudyPulse | Dashboard{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Dashboard</h1>
+
+<div class="row">
+	<div class="col-md-3">
+		<div class="stat-tile">
+			<div class="stat-value">{{ "%.1f"|format(stats.total_hours) }}</div>
+			<div class="stat-label">Total Hours Studied</div>
+		</div>
 	</div>
-</body>
-</html>
+	<div class="col-md-3">
+		<div class="stat-tile">
+			<div class="stat-value">{{ "%.1f"|format(stats.avg_productivity) }}</div>
+			<div class="stat-label">Average Productivity</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="stat-tile">
+			<div class="stat-value">{{ stats.hours_by_subject|length }}</div>
+			<div class="stat-label">Subjects Tracked</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="stat-tile">
+			<div class="stat-value">{{ weak_subjects|length }}</div>
+			<div class="stat-label">Weak Subjects</div>
+		</div>
+	</div>
+</div>
+
+<div class="row" style="margin-top: 20px;">
+	<div class="col-md-6">
+		<div class="card">
+			<h3 class="card-title">Study Hours by Subject</h3>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Subject</th>
+						<th>Hours</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for subject, hours in stats.hours_by_subject.items() %}
+					<tr>
+						<td>{{ subject }}</td>
+						<td><strong>{{ hours }}</strong></td>
+					</tr>
+					{% endfor %}
+					{% if not stats.hours_by_subject %}
+					<tr>
+						<td colspan="2" class="text-muted">No sessions logged yet</td>
+					</tr>
+					{% endif %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<div class="card">
+			<h3 class="card-title">⚠️ Weak Subjects</h3>
+			{% if weak_subjects %}
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Subject</th>
+						<th>Studied</th>
+						<th>Target</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for subject in weak_subjects %}
+					<tr>
+						<td>{{ subject.name }}</td>
+						<td>{{ subject.studied }} hrs</td>
+						<td>{{ subject.target }} hrs</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% else %}
+			<p class="text-muted">Sab subjects par accha padhai hai! 🎉</p>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock %}

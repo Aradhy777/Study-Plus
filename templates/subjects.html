@@ -1,31 +1,38 @@
 <!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>StudyPulse | Subjects</title>
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-	<div class="page">
-		<header class="topbar">
-			<div>
-				<h1 class="brand">Subjects</h1>
-				<p class="subtitle">Subject wise tracking page</p>
-			</div>
-			<nav class="nav">
-				<a href="{{ url_for('index') }}">Home</a>
-				<a href="{{ url_for('dashboard') }}">Dashboard</a>
-				<a href="{{ url_for('sessions') }}">Sessions</a>
-				<a href="{{ url_for('marks') }}">Marks</a>
-				<a href="{{ url_for('analytics') }}">Analytics</a>
-			</nav>
-		</header>
+{% extends "base.html" %}
 
-		<section class="card">
-			<h2>Subjects Page</h2>
-			<p class="muted">Yaha subjects add ya manage karne ka simple section rahega.</p>
-		</section>
-	</div>
-</body>
-</html>
+{% block title %}StudyPulse | Subjects{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+	<h1 class="page-title" style="margin-bottom: 0;">Subjects</h1>
+	<a href="{{ url_for('add_subject') }}" class="btn btn-primary">➕ Add Subject</a>
+</div>
+
+<div class="card">
+	{% if subjects %}
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Subject Name</th>
+				<th>Target Hours</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for subject in subjects %}
+			<tr>
+				<td>{{ subject.name }}</td>
+				<td>{{ subject.target_hours }} hrs</td>
+				<td>
+					<a href="{{ url_for('delete_subject', subject_id=subject.id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Sure?')">Delete</a>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{% else %}
+	<p class="text-muted">Koi subject add nahi kiya gaya abhi. <a href="{{ url_for('add_subject') }}">Add one now</a></p>
+	{% endif %}
+</div>
+{% endblock %}

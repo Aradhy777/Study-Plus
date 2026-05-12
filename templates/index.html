@@ -1,46 +1,49 @@
 <!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>StudyPulse | Home</title>
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-	<div class="page">
-		<header class="topbar">
-			<div>
-				<h1 class="brand">StudyPulse</h1>
-				<p class="subtitle">Simple student productivity tracker</p>
-			</div>
-			<nav class="nav">
-				<a href="{{ url_for('dashboard') }}">Dashboard</a>
-				<a href="{{ url_for('subjects') }}">Subjects</a>
-				<a href="{{ url_for('sessions') }}">Sessions</a>
-				<a href="{{ url_for('marks') }}">Marks</a>
-				<a href="{{ url_for('analytics') }}">Analytics</a>
-			</nav>
-		</header>
+{% extends "base.html" %}
 
-		<section class="card">
-			<h2>Welcome to StudyPulse</h2>
-			<p class="muted">Yeh ek basic Flask project hai for tracking study habits, subjects, aur marks.</p>
-		</section>
+{% block title %}StudyPulse | Home{% endblock %}
 
-		<section class="grid">
-			<div class="tile">
-				<h3>Dashboard</h3>
-				<p class="muted">Quick overview dekhne ke liye.</p>
-			</div>
-			<div class="tile">
-				<h3>Sessions</h3>
-				<p class="muted">Padhai ka time note karne ke liye.</p>
-			</div>
-			<div class="tile">
-				<h3>Analytics</h3>
-				<p class="muted">Basic progress samajhne ke liye.</p>
-			</div>
-		</section>
+{% block content %}
+<h1 class="page-title">Welcome to StudyPulse</h1>
+
+<div class="card">
+	<p>Yeh ek Flask-based study tracker hai jo tumhare padhai ke time, subjects, aur marks ko manage karne mein madad karta hai.</p>
+</div>
+
+<div class="row">
+	<div class="col-md-3">
+		<div class="stat-tile">
+			<div class="stat-value">{{ "%.1f"|format(stats.total_hours) }}</div>
+			<div class="stat-label">Total Hours</div>
+		</div>
 	</div>
-</body>
-</html>
+	<div class="col-md-3">
+		<div class="stat-tile">
+			<div class="stat-value">{{ "%.1f"|format(stats.avg_productivity) }}</div>
+			<div class="stat-label">Avg Productivity</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="stat-tile">
+			<div class="stat-value">{{ stats.weak_subjects|length }}</div>
+			<div class="stat-label">Weak Subjects</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="stat-tile">
+			<div class="stat-value">{{ stats.hours_by_subject|length }}</div>
+			<div class="stat-label">Total Subjects</div>
+		</div>
+	</div>
+</div>
+
+<div class="card" style="margin-top: 30px;">
+	<h3>Quick Start</h3>
+	<ul class="list-group list-group-flush">
+		<li class="list-group-item"><a href="{{ url_for('add_subject') }}">➕ Add a Subject</a></li>
+		<li class="list-group-item"><a href="{{ url_for('add_session') }}">⏱️ Log Study Session</a></li>
+		<li class="list-group-item"><a href="{{ url_for('add_mark') }}">📝 Add Marks</a></li>
+		<li class="list-group-item"><a href="{{ url_for('analytics') }}">📊 View Analytics</a></li>
+	</ul>
+</div>
+{% endblock %}

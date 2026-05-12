@@ -1,31 +1,44 @@
 <!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>StudyPulse | Marks</title>
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-	<div class="page">
-		<header class="topbar">
-			<div>
-				<h1 class="brand">Marks</h1>
-				<p class="subtitle">Marks and performance page</p>
-			</div>
-			<nav class="nav">
-				<a href="{{ url_for('index') }}">Home</a>
-				<a href="{{ url_for('dashboard') }}">Dashboard</a>
-				<a href="{{ url_for('subjects') }}">Subjects</a>
-				<a href="{{ url_for('sessions') }}">Sessions</a>
-				<a href="{{ url_for('analytics') }}">Analytics</a>
-			</nav>
-		</header>
+{% extends "base.html" %}
 
-		<section class="card">
-			<h2>Marks Page</h2>
-			<p class="muted">Yaha test ya exam marks ka simple record rahega.</p>
-		</section>
-	</div>
-</body>
-</html>
+{% block title %}StudyPulse | Marks{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+	<h1 class="page-title" style="margin-bottom: 0;">Marks</h1>
+	<a href="{{ url_for('add_mark') }}" class="btn btn-primary">➕ Add Mark</a>
+</div>
+
+<div class="card">
+	{% if marks %}
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Subject</th>
+				<th>Exam Type</th>
+				<th>Marks</th>
+				<th>Percentage</th>
+				<th>Date</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for mark in marks %}
+			<tr>
+				<td>{{ mark.subject }}</td>
+				<td>{{ mark.exam_type }}</td>
+				<td>{{ mark.marks_obtained }}/{{ mark.total_marks }}</td>
+				<td><strong>{{ mark.percentage() }}%</strong></td>
+				<td>{{ mark.exam_date }}</td>
+				<td>
+					<a href="{{ url_for('delete_mark', mark_id=mark.id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Sure?')">Delete</a>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{% else %}
+	<p class="text-muted">Koi marks record nahi kiye gaye. <a href="{{ url_for('add_mark') }}">Add now</a></p>
+	{% endif %}
+</div>
+{% endblock %}
