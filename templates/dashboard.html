@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>StudyPulse | Dashboard</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+	<div class="page">
+		<header class="topbar">
+			<div>
+				<h1 class="brand">Dashboard</h1>
+				<p class="subtitle">Overall study summary</p>
+			</div>
+			<nav class="nav">
+				<a href="{{ url_for('index') }}">Home</a>
+				<a href="{{ url_for('subjects') }}">Subjects</a>
+				<a href="{{ url_for('sessions') }}">Sessions</a>
+				<a href="{{ url_for('marks') }}">Marks</a>
+				<a href="{{ url_for('analytics') }}">Analytics</a>
+			</nav>
+		</header>
+
+		<section class="card">
+			<h2>Study Dashboard</h2>
+			<p class="muted">Yahan pe future me total study hours aur subject progress dikhega.</p>
+		</section>
+	</div>
+</body>
+</html>

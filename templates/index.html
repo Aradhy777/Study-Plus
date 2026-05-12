@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>StudyPulse | Home</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+	<div class="page">
+		<header class="topbar">
+			<div>
+				<h1 class="brand">StudyPulse</h1>
+				<p class="subtitle">Simple student productivity tracker</p>
+			</div>
+			<nav class="nav">
+				<a href="{{ url_for('dashboard') }}">Dashboard</a>
+				<a href="{{ url_for('subjects') }}">Subjects</a>
+				<a href="{{ url_for('sessions') }}">Sessions</a>
+				<a href="{{ url_for('marks') }}">Marks</a>
+				<a href="{{ url_for('analytics') }}">Analytics</a>
+			</nav>
+		</header>
+
+		<section class="card">
+			<h2>Welcome to StudyPulse</h2>
+			<p class="muted">Yeh ek basic Flask project hai for tracking study habits, subjects, aur marks.</p>
+		</section>
+
+		<section class="grid">
+			<div class="tile">
+				<h3>Dashboard</h3>
+				<p class="muted">Quick overview dekhne ke liye.</p>
+			</div>
+			<div class="tile">
+				<h3>Sessions</h3>
+				<p class="muted">Padhai ka time note karne ke liye.</p>
+			</div>
+			<div class="tile">
+				<h3>Analytics</h3>
+				<p class="muted">Basic progress samajhne ke liye.</p>
+			</div>
+		</section>
+	</div>
+</body>
+</html>

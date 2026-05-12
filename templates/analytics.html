@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>StudyPulse | Analytics</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+	<div class="page">
+		<header class="topbar">
+			<div>
+				<h1 class="brand">Analytics</h1>
+				<p class="subtitle">Simple progress overview</p>
+			</div>
+			<nav class="nav">
+				<a href="{{ url_for('index') }}">Home</a>
+				<a href="{{ url_for('dashboard') }}">Dashboard</a>
+				<a href="{{ url_for('subjects') }}">Subjects</a>
+				<a href="{{ url_for('sessions') }}">Sessions</a>
+				<a href="{{ url_for('marks') }}">Marks</a>
+			</nav>
+		</header>
+
+		<section class="card">
+			<h2>Analytics Page</h2>
+			<p class="muted">Future me yahan charts aur basic insights aayenge.</p>
+		</section>
+	</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>StudyPulse | Marks</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+	<div class="page">
+		<header class="topbar">
+			<div>
+				<h1 class="brand">Marks</h1>
+				<p class="subtitle">Marks and performance page</p>
+			</div>
+			<nav class="nav">
+				<a href="{{ url_for('index') }}">Home</a>
+				<a href="{{ url_for('dashboard') }}">Dashboard</a>
+				<a href="{{ url_for('subjects') }}">Subjects</a>
+				<a href="{{ url_for('sessions') }}">Sessions</a>
+				<a href="{{ url_for('analytics') }}">Analytics</a>
+			</nav>
+		</header>
+
+		<section class="card">
+			<h2>Marks Page</h2>
+			<p class="muted">Yaha test ya exam marks ka simple record rahega.</p>
+		</section>
+	</div>
+</body>
+</html>

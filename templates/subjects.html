@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>StudyPulse | Subjects</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+	<div class="page">
+		<header class="topbar">
+			<div>
+				<h1 class="brand">Subjects</h1>
+				<p class="subtitle">Subject wise tracking page</p>
+			</div>
+			<nav class="nav">
+				<a href="{{ url_for('index') }}">Home</a>
+				<a href="{{ url_for('dashboard') }}">Dashboard</a>
+				<a href="{{ url_for('sessions') }}">Sessions</a>
+				<a href="{{ url_for('marks') }}">Marks</a>
+				<a href="{{ url_for('analytics') }}">Analytics</a>
+			</nav>
+		</header>
+
+		<section class="card">
+			<h2>Subjects Page</h2>
+			<p class="muted">Yaha subjects add ya manage karne ka simple section rahega.</p>
+		</section>
+	</div>
+</body>
+</html>
